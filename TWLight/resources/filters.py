@@ -14,6 +14,10 @@ def get_partner_tags():
 class PartnerFilter(django_filters.FilterSet):
     tags = django_filters.ModelChoiceFilter(queryset=get_partner_tags())
     languages = django_filters.ModelChoiceFilter(queryset=Language.objects.all())
+    company_name = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Partner
-        fields = ['languages', 'tags']
+        fields = ['languages', 'tags', 'company_name']
+
+
+PartnerFilter.base_filters['company_name'].label = 'Company Name'
